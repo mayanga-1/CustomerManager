@@ -1,5 +1,6 @@
 package org.example.customermanager;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.application.Application;
@@ -24,9 +25,22 @@ public class CustomerManagerApp extends Application {
 
         Button saveButton = new Button("Save customer");
         Label status = new Label();
+        TableView<Customer> table = new TableView<>();
+        table.setItems(customers);
 
-        VBox root = new VBox(10, nameLabel, nameField, provinceBox, saveButton, status);
-        stage.setScene(new Scene(root, 350, 250));
+        TableColumn<Customer, String> nameCol = new TableColumn<>("Customer name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Customer, String> provinceCol = new TableColumn<>("Province");
+        provinceCol.setCellValueFactory(new PropertyValueFactory<>("province"));
+
+        table.getColumns().add(nameCol);
+        table.getColumns().add(provinceCol);
+
+        customers.add(new Customer("Mary", "Central"));
+
+        VBox root = new VBox(10, nameLabel, nameField, provinceBox, saveButton, status, table);
+        stage.setScene(new Scene(root, 400, 450));
         stage.setTitle("Customer Manager");
         stage.show();
     }
