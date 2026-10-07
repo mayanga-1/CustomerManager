@@ -59,7 +59,28 @@ public class CustomerManagerApp extends Application {
             nameField.requestFocus();
         });
 
-        VBox root = new VBox(10, nameLabel, nameField, provinceBox, saveButton, status, table);
+        Button deleteButton = new Button("Delete selected");
+
+        deleteButton.setOnAction(event -> {
+            Customer selected = table.getSelectionModel().getSelectedItem();
+            if (selected == null) {
+                status.setText("Select a customer to delete.");
+                return;
+            }
+
+            ButtonType delete = new ButtonType("Delete");
+            Alert ask = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete the selected customer?",
+                    delete, ButtonType.CANCEL);
+            ask.setHeaderText("Confirm deletion");
+
+            if (ask.showAndWait().orElse(ButtonType.CANCEL) == delete) {
+                customers.remove(selected);
+                status.setText("Customer deleted.");
+            }
+        });
+
+        VBox root = new VBox(10, nameLabel, nameField, provinceBox, saveButton, status, table, deleteButton);
         stage.setScene(new Scene(root, 400, 450));
         stage.setTitle("Customer Manager");
         stage.show();
