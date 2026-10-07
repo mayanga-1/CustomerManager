@@ -37,7 +37,27 @@ public class CustomerManagerApp extends Application {
         table.getColumns().add(nameCol);
         table.getColumns().add(provinceCol);
 
-        customers.add(new Customer("Mary", "Central"));
+        saveButton.setOnAction(event -> {
+            String name = nameField.getText().trim();
+            if (name.isEmpty()) {
+                status.setText("Enter the customer name.");
+                nameField.requestFocus();
+                return;
+            }
+
+            String province = provinceBox.getValue();
+            if (province == null) {
+                status.setText("Choose a province.");
+                provinceBox.requestFocus();
+                return;
+            }
+
+            customers.add(new Customer(name, province));
+            status.setText("Customer saved.");
+            nameField.clear();
+            provinceBox.setValue(null);
+            nameField.requestFocus();
+        });
 
         VBox root = new VBox(10, nameLabel, nameField, provinceBox, saveButton, status, table);
         stage.setScene(new Scene(root, 400, 450));
