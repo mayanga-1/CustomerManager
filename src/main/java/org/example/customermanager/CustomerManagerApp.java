@@ -1,5 +1,7 @@
 package org.example.customermanager;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ public class CustomerManagerApp extends Application {
 
     @Override
     public void start(Stage stage) {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
         TextField nameField = new TextField();
         nameField.setPromptText("e.g., Mary Banda");
         Label nameLabel = new Label("Customer name");
