@@ -24,6 +24,7 @@ public class CustomerManagerApp extends Application {
         provinceBox.setPromptText("Choose a province");
 
         Button saveButton = new Button("Save customer");
+        saveButton.setDefaultButton(true);
         Label status = new Label();
         TableView<Customer> table = new TableView<>();
         table.setItems(customers);
@@ -84,6 +85,7 @@ public class CustomerManagerApp extends Application {
         stage.setScene(new Scene(root, 400, 450));
         stage.setTitle("Customer Manager");
         stage.show();
+        nameField.requestFocus();
     }
 
     public static void main(String[] args) {
